@@ -2,7 +2,7 @@
 
 echo ’A simple arithmetic script.’
 num1=45
-num2=15
+num2=16
 # Check which number is greater
 
 if [ $num1 -gt $num2 ]
