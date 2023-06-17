@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo ’A simple arithmetic script.’
-num1=20
+num1=29
 num2=10
 # Check which number is greater
 
