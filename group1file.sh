@@ -12,6 +12,4 @@ else
     echo ‘$num2 is greater than $num1.’
 fi
 
-
-A. The ability for Jenkins to pull code from GitHub
-B. The ability for GitHub to trigger Jenkins build jobs 
+ 
