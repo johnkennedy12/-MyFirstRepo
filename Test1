@@ -1,0 +1,28 @@
+#Git Clone
+FROM alpine/git as repo
+MAINTAINER info@acadalearning.com
+WORKDIR /app
+RUN git clone https://github.com/johnkennedy12/web-app.git
+
+#Maven build
+FROM maven:3.5-jdk-8-alpine as build
+WORKDIR /app
+COPY --from=repo /app/web-app /app
+RUN mvn package
+
+#Sonar Test
+FROM sonarqube:latest as test
+WORKDIR /app
+COPY --from=build /app/web-app /app
+RUN mvn sonar:sonar
+
+#Nexus Backup
+FROM dockette/nexus:latest as deploy
+WORKDIR /app
+COPY --from=test /app/web-app /app
+RUN mvn deploy
+
+#Tomcat
+FROM tomcat:8.0.20-jre8 as deploy
+COPY --from=deploy /app/target/*.war /usr/local/tomcat/webapps
+echo "Deployment Completed"
